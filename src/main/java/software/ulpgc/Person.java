@@ -2,12 +2,15 @@ package software.ulpgc;
 
 import java.time.LocalDate;
 
-public class Person {
-    private final String name;
-    private final LocalDate birthday;
+public record Person(String name, LocalDate birthday) {
 
-    public Person(String name, LocalDate birthday) {
-        this.name = name;
-        this.birthday = birthday;
+    public int age(){
+        return toYears(LocalDate.now().toEpochDay() - birthday.toEpochDay());
+    }
+
+    public static final double Days_Per_Year = 365.25;
+
+    private int toYears(long days) {
+        return (int) (days / Days_Per_Year);
     }
 }
